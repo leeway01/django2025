@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% load static %}
+<div class="container text-center py-3">
+  <a href="{% url 'pages:main' %}">
+    <img src="{% static 'images/logo.png' %}" alt="Bocafrio" style="max-height:60px;">
+  </a>
+</div>

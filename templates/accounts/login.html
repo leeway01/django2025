@@ -1,10 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{# templates/accounts/login.html #}
+{% extends "base.html" %}
+{% block content %}
+<div class="container py-5">
+  <div class="row">
+    <div class="col-md-4">
+        <h2>Login</h2>
+      {% if form.errors %}
+        <div class="alert alert-danger">
+          아이디 또는 비밀번호가 틀립니다. 다시 시도해주세요.
+        </div>
+      {% endif %}
+
+      <form method="post" action="{% url 'accounts:login' %}">
+        {% csrf_token %}
+
+        {# form-group 스타일로 라벨+필드 #}
+        <div class="mb-3">
+          {{ form.username.label_tag }}
+          {{ form.username }}
+        </div>
+        <div class="mb-4">
+          {{ form.password.label_tag }}
+          {{ form.password }}
+        </div>
+
+        {# 버튼을 가로로 붙이고 색을 둘 다 primary로 통일 #}
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-primary flex-grow-1">
+            Login
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

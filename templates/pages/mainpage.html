@@ -1,14 +1,124 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
- <meta charset="UTF-8">
- <title>메인 페이지</title>
-</head>
-<body>
-<nav>
- <a href="/company/">company info</a>
- <a href="/product/">product</a>
-</nav>
-<h1>메인 페이지입니다.</h1>
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}홈 | Bocafrio{% endblock %}
+
+{% block content %}
+
+<div class="container py-2">
+  <div
+    id="promoCarousel"
+    class="carousel slide w-50 mx-auto position-relative"
+    data-bs-ride="carousel"
+    data-bs-interval="3000"
+  >
+    <!-- 인디케이터 -->
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#promoCarousel" data-bs-slide-to="0" class="active"></button>
+      <button type="button" data-bs-target="#promoCarousel" data-bs-slide-to="1"></button>
+      <button type="button" data-bs-target="#promoCarousel" data-bs-slide-to="2"></button>
+    </div>
+
+    <!-- 슬라이드 -->
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="ratio ratio-16x9">
+          <img src="{% static 'images/slide1.jpg' %}" class="d-block w-100" alt="추천 제품 영역">
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="ratio ratio-16x9">
+          <img src="{% static 'images/slide2.jpg' %}" class="d-block w-100" alt="프로모션 영역">
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="ratio ratio-16x9">
+          <img src="{% static 'images/slide3.jpg' %}" class="d-block w-100" alt="이벤트 영역">
+        </div>
+      </div>
+    </div>
+
+    <!-- 좌우 기본 컨트롤 살리기 -->
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#promoCarousel"
+      data-bs-slide="prev"
+    >
+      <span class="carousel-control-prev-icon"></span>
+      <span class="visually-hidden">이전</span>
+    </button>
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#promoCarousel"
+      data-bs-slide="next"
+    >
+      <span class="carousel-control-next-icon"></span>
+      <span class="visually-hidden">다음</span>
+    </button>
+  </div>
+</div>
+
+<!-- 3) 추천 제품 섹션 -->
+<div class="container py-2">
+  <h3 class="mb-4 text-center">추천 제품</h3>
+  <div class="row gx-1 gy-4">
+    {% for item in featured %}
+      <div class="col-6 col-md-3">
+        <div class="card h-100 p-2" style="max-width: 250px; margin: 0 auto;">
+
+          <div class="ratio ratio-16x9 w-50 mx-auto">
+            {% if item.image %}
+              <img
+                src="{{ item.image.url }}"
+                class="w-100 h-100"
+                style="object-fit: cover;"
+                alt="{{ item.title }}"
+              >
+            {% else %}
+              <img
+                src="{% static 'images/placeholder.png' %}"
+                class="w-100 h-100"
+                style="object-fit: cover;"
+                alt="No image"
+              >
+            {% endif %}
+          </div>
+
+          <div class="card-body text-center">
+            <p class="card-text">{{ item.title }}</p>
+            <p class="text-muted">{{ item.price }}원</p>
+            <a href="{% url 'product:detail' item.id %}" class="btn btn-sm btn-primary">
+              상세보기
+            </a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+<style>
+  /* 컨트롤 화살표를 이미지 영역 왼·오른쪽에 오도록 재배치 */
+  #promoCarousel .carousel-control-prev,
+  #promoCarousel .carousel-control-next {
+    width: 4rem;
+    height: 4rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  #promoCarousel .carousel-control-prev {
+    left: 0.5rem;
+  }
+  #promoCarousel .carousel-control-next {
+    right: 0.5rem;
+  }
+  /* 화살표 아이콘 크기 키우기 */
+  #promoCarousel .carousel-control-prev-icon,
+  #promoCarousel .carousel-control-next-icon {
+    background-size: 100%, 100%;
+  }
+</style>
+
+{% endblock %}

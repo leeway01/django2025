@@ -1,10 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{# templates/navbar.html #}
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
 
-</body>
-</html>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#mainNav"
+      aria-controls="mainNav"
+      aria-expanded="false"
+      aria-label="토글 네비게이션"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-center" id="mainNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'pages:company' %}">브랜드/회사 소개</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'pages:product' %}">제품</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'pages:guide' %}">구매 안내</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'pages:news' %}">뉴스</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'pages:event' %}">이벤트</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'pages:support' %}">고객 센터</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

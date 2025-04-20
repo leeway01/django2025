@@ -1,10 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{# templates/utilbar.html #}
+{% load static %}
+<div class="bg-light py-1">
+  <div class="container d-flex justify-content-end align-items-center small">
+
+    {% if user.is_authenticated %}
+      <span>{{ user.username }}님</span>
+
+      <form method="post" action="{% url 'accounts:logout' %}" class="d-inline ms-1 me-3">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-link p-0 text-dark">
+          (로그아웃)
+        </button>
+      </form>
+
+    {% else %}
+      <a href="{% url 'accounts:signup' %}" class="me-3 text-decoration-none text-dark">
+        회원가입
+      </a>
+      <a href="{% url 'accounts:login' %}" class="me-3 text-decoration-none text-dark">
+        로그인
+      </a>
+    {% endif %}
+
+    <a href="{% url 'orders:tracking' %}" class="me-3 text-decoration-none text-dark">
+      주문/배송조회
+    </a>
+    <!-- SNS 아이콘 생략 -->
+    <a href="https://www.facebook.com/baskinrobbinskr/" class="me-2">
+      <img src="{% static 'icons/facebook.png' %}" alt="Facebook" width="16">
+    </a>
+    <a href="https://www.instagram.com/baskinrobbinskorea/">
+      <img src="{% static 'icons/instagram.png' %}" alt="Instagram" width="16">
+    </a>
+  </div>
+</div>
