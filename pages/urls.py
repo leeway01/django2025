@@ -29,4 +29,6 @@ urlpatterns = [
     path('news/', views.news, name='news'),
     path('event/', views.event, name='event'),
     path('support/', views.support, name='support'),
+    # section 변수로 구분
+    path('company/<str:section>/', views.company, name='company_section'),
 ]

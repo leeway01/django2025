@@ -1,27 +1,15 @@
-"""
-URL configuration for my_project project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-from django.contrib import admin
-# product/urls.py
 from django.urls import path
 from . import views
 
-app_name = 'product'    # ← 이 줄이 있어야 합니다
+app_name = 'product'
 
 urlpatterns = [
-    path('',            views.index,  name='index'),
+    path('', views.index, name='index'),
     path('<int:content_id>/', views.detail, name='detail'),
+    path('comment/create/<int:content_id>/', views.comment_create, name='comment_create'),
+    path('comment/update/<int:comment_id>/', views.comment_update, name='comment_update'),
+    path('comment/delete/<int:comment_id>/', views.comment_delete, name='comment_delete'),
+    path('product/', views.product_list, name='list'),
+    path('category/<str:category>/', views.product_list, name='list_by_category'),
+    path('order/<int:product_id>/', views.product_order, name='order'),
 ]

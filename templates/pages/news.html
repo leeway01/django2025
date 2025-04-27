@@ -1,8 +1,84 @@
 {% extends 'base.html' %}
-{% block title %}뉴스{% endblock %}
+{% load static %}
 
 {% block content %}
-  <div class="container py-5">
-    <h1>뉴스 페이지입니다.</h1>
+  {# 화살표·인디케이터 색상 검정 적용 #}
+  <style>
+    /* 인디케이터 점 색상 */
+    #newsCarousel .carousel-indicators button {
+      background-color: black;
+    }
+    #newsCarousel .carousel-indicators .active {
+      background-color: black;
+    }
+    /* 화살표 아이콘 색상 (기본 흰색을 반전시켜 검정으로) */
+    #newsCarousel .carousel-control-prev-icon,
+    #newsCarousel .carousel-control-next-icon {
+      filter: invert(1);
+    }
+  </style>
+
+  <div class="container my-5">
+    <h2 class="mb-4 text-center">뉴스</h2>
+
+    <div id="newsCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+      <!-- 인디케이터 -->
+      <div class="carousel-indicators">
+        {% for slide in slides %}
+          <button
+            type="button"
+            data-bs-target="#newsCarousel"
+            data-bs-slide-to="{{ forloop.counter0 }}"
+            {% if forloop.first %}class="active"{% endif %}
+            aria-current="{% if forloop.first %}true{% endif %}"
+            aria-label="Slide {{ forloop.counter }}"
+          ></button>
+        {% endfor %}
+      </div>
+
+      <!-- 슬라이드 -->
+      <div class="carousel-inner">
+        {% for slide in slides %}
+          <div class="carousel-item {% if forloop.first %}active{% endif %}">
+            <div class="row">
+              {% for img_path in slide %}
+                <div class="col-md-6 mb-4">
+                  <div class="card h-100">
+                    <div class="ratio ratio-16x9">
+                      <img
+                        src="{% static img_path %}"
+                        class="card-img-top"
+                        style="object-fit: cover;"
+                        alt="뉴스 {{ forloop.parentloop.counter0|add:forloop.counter }} 이미지"
+                      >
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- 좌우 컨트롤 -->
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#newsCarousel"
+        data-bs-slide="prev"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#newsCarousel"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
   </div>
 {% endblock %}

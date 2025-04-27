@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h3>🛒 {{ product.title }} 주문하기</h3>
+  <div>
+    <img src="{{ product.image.url }}" width="200">
+    <p>{{ product.description }}</p>
+    <p>가격: <strong class="text-danger">{{ product.price }}원</strong></p>
+  </div>
+  <form method="post" action="#">
+    {% csrf_token %}
+    <!-- TODO: 결제 정보 입력 필드 -->
+    <button type="submit" class="btn btn-success">결제하기</button>
+  </form>
+{% endblock %}
